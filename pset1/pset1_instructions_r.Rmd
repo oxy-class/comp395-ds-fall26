@@ -1,0 +1,122 @@
+---
+title: pset1_instructions
+output: html_document
+---
+
+# Problem Set 1: Exploratory Data Analysis & Visualization
+**Dataset:** *Little Women* by Louisa May Alcott (parsed from raw text provided by *Project Gutenberg*), *Mario Kart Item Probability* by Nintendo
+
+**Overview:**
+In this problem set, you will perform exploratory data analysis and visusalization on literary characters using either **Python** or **R**. 
+
+**Instructions:**
+
++ To complete this problem set in R, you will use `tidyverse`, `ggplot` (visualization), `stringr` (for string manipulation) libraries. [This R resource](https://r4ds.hadley.nz/data-visualize.html) is helpful.
+- For each problem, write your code in the provided code cell and answer any interpretation questions in markdown text below it.
++ AI assistance is permitted, provided that all code is understood and verified before submission. Consulting the relevant documentation yourself is recommended. 
+- **Submission**: Complete in an .Rmd file and submit the exported `.pdf` or `.html` with R code outputs to Canvas. 
+
+### Setup
+
+```{r}
+# install once if you don't have them
+# install.packages("tidyverse")
+# install.packages("stringr")
+library(tidyverse)
+library(stringr)
+
+# 1. Load the Little Women dataset for Problems 1-3
+
+url_little_women <- 'https://raw.githubusercontent.com/oxy-class/comp395-ds-fall26/main/pset1/data/little_women_chapters.csv'
+
+little_women <- read_csv(url_little_women)
+
+# 2. Generate the Mario Kart Item Probability dataset for Problem 4
+
+mario_kart_df <- tibble(
+  Position = rep(c("1st Place", "6th Place", "12th Place"), each = 5),
+  Item = rep(c("Banana", "Green Shell", "Mushroom", "Blue Shell", "Bullet Bill"), times = 3),
+  Probability = c(0.45, 0.30, 0.05, 0.00, 0.00,
+                   0.05, 0.15, 0.40, 0.05, 0.00,
+                   0.00, 0.00, 0.10, 0.15, 0.45)
+)
+
+cat(paste0("Little Women dataset loaded! Dimensions: ", paste(dim(little_women), collapse = ", "), "\n"))
+cat(paste0("Mario Kart dataset loaded! Dimensions: ", paste(dim(mario_kart_df), collapse = ", "), "\n"))
+
+```
+
+#### Problem 1: Counting *Little Women* Characters (5 points)
+**Description:** Let's start with the data frame `little_women`. *Little Women* is a coming-of-age novel of four sisters growing up during the American Civil War in New England. Calculate the total number of times each character (Jo, Meg, Beth, Amy, and Laurie) is mentioned across all chapters of the book. The `str_count()` function will be helpful (from the `stringr` library, and vectorized). Consider potential noise from string search. Use `\b` in regular expression to delineate word boundaries ([more information](https://r4ds.hadley.nz/regexps.html)). 
+
+*Question:* Who is the most frequently mentioned character, and who is the least?
+
+**Expected Output:** A printed summary displaying the characters and their total aggregate mention counts.
+
+
+```{r}
+# Your code here
+
+
+```
+
+#### Problem 2a: Character Trajectories with Line Plots (5 points)
+**Description:** Let's visualize how the focus on different characters shifts as the story progresses. Create a line plot tracking the number of mentions per chapter for **Jo** and **Amy**. The x-axis should represent the Chapter number (using the row index), and the y-axis should represent the number of mentions.
+
+**Expected Output:** A line chart containing two distinct lines. The plot must include a title, labeled axes (X = Chapter, Y = Mentions), and a legend distinguishing the two characters. Use `ggplot`. 
+
+
+```{r}
+# Your code here
+
+
+```
+
+#### Problem 2b: Character Trajectories in Cumulative Mentions (5 points)
+
+Now let's calculate and visualize the *cumulative* number of mentions for Jo and Amy across chapters. This will show how their total mentions grow throughout the book. Use [`mutate()`](https://r4ds.hadley.nz/numbers.html) in tidyverse with `cumsum()` from base r. 
+
+
+```{r}
+# Your code here
+
+
+```
+
+
+#### Problem 3: Distribution of Mentions (5 points)
+**Description:** Plot a histogram showing the distribution of chapter mentions for **Laurie**. Experiment with the number of bins (try between 10 and 15) so the shape of the distribution is clear.
+
+*Question:* Is his distribution roughly symmetric, left-skewed, or right-skewed? What does this tell you about his presence in a given chapter?
+
+**Expected Output:** A single histogram displaying the frequency of Laurie's mention counts. The plot must include appropriate titles and axis labels (X = Number of Mentions, Y = Frequency).
+
+
+```{r}
+# Your code here
+
+
+```
+
+#### Problem 4: The Catch-Up Mechanic with Grouped Bar Chart (5 points)
+*Disclaimer:* Your TA is a sucker for Mario Kart so you may get multiple problems relating to that this semester.
+
+**Description:** Look at the `mario_kart_df` dataset we loaded earlier. This dataset contains the probability of pulling certain items from an item box based on your current race position (1st, 6th, or 12th place). 
+
+Create a **grouped bar chart** to visualize this data.
+1. The x-axis should represent the `Item`.
+2. The y-axis should represent the `Probability`.
+3. Group or color the bars by `Position` so we can compare the item probabilities side-by-side. 
+4. Consider your coloring choices for best visualization effects.
+
+*Question:* Based on your visualization, which item acts as the ultimate "catch-up" mechanism for players in 12th place, and why do you think Nintendo programmed the probabilities this way?
+
+**Expected Output:** A single bar chart with grouped bars, including a legend, a title, and properly labeled axes. See examples using ggplot with [aesthetic mapping](https://r4ds.hadley.nz/communication.html) here. 
+
+
+```{r}
+# Your code here
+
+```
+
+You are done with Problem Set 1! 
